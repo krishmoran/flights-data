@@ -10,9 +10,11 @@ This is a minimal, reproducible example of how to scrape the web with Selenium a
 Fork this repo, and edit `/streamlit_app.py` to customize this app to your heart's desire. :heart:
 """
 
-with st.echo():
-    from selenium import webdriver
 
+from selenium import webdriver
+
+#scrape flight information from a google flight link with selenium
+def scrape_flight_info(flight_url):
     chrome_options = webdriver.ChromeOptions()
     chrome_options.set_capability('browserless:token', 'ec8b3258-14ab-45dc-a702-e8b727e29f55')
     chrome_options.add_argument("--no-sandbox")
@@ -23,7 +25,11 @@ with st.echo():
         options=chrome_options
     )
 
-    driver.get("https://www.amazon.com")
+    driver.get(flight_url)
+    return driver.page_source
 
-    st.code(driver.page_source)
+with st.echo(code_location='below'):
+    flight_url = st.text_input('Enter a Google Flights URL:')
+    if flight_url:
+        st.write(scrape_flight_info(flight_url))
 
