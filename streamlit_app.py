@@ -12,19 +12,18 @@ Fork this repo, and edit `/streamlit_app.py` to customize this app to your heart
 
 with st.echo():
     from selenium import webdriver
-    from selenium.webdriver.chrome.options import Options
-    from selenium.webdriver.chrome.service import Service
-    from webdriver_manager.chrome import ChromeDriverManager
 
-    @st.experimental_singleton
-    def get_driver():
-        return webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.set_capability('browserless:token', 'YOUR-API-TOKEN')
+    chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--headless")
 
-    options = Options()
-    options.add_argument('--disable-gpu')
-    options.add_argument('--headless')
+    driver = webdriver.Remote(
+        command_executor='https://chrome.browserless.io/webdriver',
+        options=chrome_options
+    )
 
-    driver = get_driver()
-    driver.get("http://example.com")
+    driver.get("https://www.amazon.com")
 
     st.code(driver.page_source)
+
