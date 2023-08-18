@@ -14,7 +14,7 @@ with st.echo():
     from selenium import webdriver
 
     chrome_options = webdriver.ChromeOptions()
-    chrome_options.set_capability('browserless:token', 'YOUR-API-TOKEN')
+    chrome_options.set_capability('browserless:token', 'ec8b3258-14ab-45dc-a702-e8b727e29f55')
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--headless")
 
