@@ -28,8 +28,12 @@ def scrape_flight_info(flight_url):
     driver.get(flight_url)
     return driver.page_source
 
-with st.echo(code_location='below'):
-    flight_url = st.text_input('Enter a Google Flights URL:')
-    if flight_url:
-        st.write(scrape_flight_info(flight_url))
+# create a form and submission in streamlit to use the above function
+st.write('Enter a Google Flights URL to scrape flight information:')
+flight_url = st.text_input('URL', 'https://www.google.com/travel/flights/search?hl=en#flt=JFK.LAX.2021-12-25;c:USD;e:1;sd:1;t:f;tt:o')
+if st.button('Scrape'):
+    st.write('Scraping flight information...')
+    page_source = scrape_flight_info(flight_url)
+    st.write(page_source)
+    st.write('Done!')
 
