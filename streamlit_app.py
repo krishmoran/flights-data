@@ -12,6 +12,7 @@ Fork this repo, and edit `/streamlit_app.py` to customize this app to your heart
 
 
 from selenium import webdriver
+from selenium.webdriver.common.by import By
 
 #scrape flight information from a google flight link with selenium
 def scrape_flight_info(flight_url):
@@ -26,7 +27,8 @@ def scrape_flight_info(flight_url):
     )
 
     driver.get(flight_url)
-    return driver.page_source
+    html = driver.find_element(by = By.XPATH, value = '//body[@id = "yDmH0d"]').text.split('\n')
+    return html
 
 # create a form and submission in streamlit to use the above function
 st.write('Enter a Google Flights URL to scrape flight information:')
